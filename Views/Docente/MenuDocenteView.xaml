@@ -1,0 +1,422 @@
+﻿<Window x:Class="K_NECT.Views.Docente.MenuDocenteView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="K-NECT - Menú Docente" 
+        Height="750" 
+        Width="1300"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        AllowsTransparency="True"
+        MouseDown="Window_MouseDown"
+        Icon="/Resources/Images/LogoK-nect3.png">
+
+    <Window.Resources>
+        <!-- Estilo para botones del menú lateral -->
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource White}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="20,12"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource PrimaryLight}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Estilo para tarjetas del dashboard -->
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource White}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource GrayLight}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Padding" Value="25"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource PrimaryLight}"/>
+                    <Setter Property="BorderBrush" Value="{StaticResource PrimaryMedium}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Border Background="{StaticResource White}" 
+            CornerRadius="15" 
+            Margin="20"
+            BorderBrush="{StaticResource GrayLight}"
+            BorderThickness="1">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- ===== SIDEBAR IZQUIERDO ===== -->
+            <Border Grid.Column="0" 
+                    Background="{StaticResource PrimaryDark}" 
+                    CornerRadius="15,0,0,15">
+
+                <StackPanel VerticalAlignment="Stretch">
+
+                    <!-- Logo y Header -->
+                    <StackPanel Margin="25,30,25,30" HorizontalAlignment="Center">
+                        <TextBlock Text="K-NECT"
+                                   Foreground="{StaticResource White}"
+                                   FontSize="28"
+                                   FontWeight="Bold"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,0,0,5"/>
+
+                        <TextBlock Text="DOCENTE"
+                                   Foreground="{StaticResource SuccessLight}"
+                                   FontSize="14"
+                                   FontWeight="SemiBold"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,0,0,20"/>
+
+                        <!-- Info del docente -->
+                        <Border Background="{StaticResource PrimaryMedium}"
+                                CornerRadius="8"
+                                Padding="15"
+                                Margin="0,0,0,0">
+                            <StackPanel>
+                                <Border Width="80"
+                                    Height="80"
+                                    CornerRadius="40"
+                                    BorderBrush="{StaticResource White}"
+                                    BorderThickness="2"
+                                    Margin="0,0,0,8"
+                                    ClipToBounds="True">
+                                   <Image Source="/Resources/Images/docenteDefault.png"
+                                   Stretch="UniformToFill"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"/>
+                                </Border>
+
+                                <TextBlock x:Name="txtNombreDocente"
+                                           Text="Prof. Nombre Apellido"
+                                           Foreground="{StaticResource White}"
+                                           FontSize="13"
+                                           FontWeight="Bold"
+                                           HorizontalAlignment="Center"
+                                           TextAlignment="Center"
+                                           TextWrapping="Wrap"
+                                           Margin="0,0,0,5"/>
+
+                                <TextBlock x:Name="txtEspecialidad"
+                                           Text="Especialidad"
+                                           Foreground="{StaticResource White}"
+                                           FontSize="11"
+                                           HorizontalAlignment="Center"
+                                           TextAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Menú de Navegación -->
+                    <StackPanel Margin="15,0,15,20">
+                        <Button Style="{StaticResource MenuButtonStyle}" Click="MenuItem_Inicio_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="🏠" FontSize="16" Margin="0,0,15,0"/>
+                                <TextBlock Text="Inicio" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource MenuButtonStyle}" Click="MenuItem_Asignaturas_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="📚" FontSize="16" Margin="0,0,15,0"/>
+                                <TextBlock Text="Mis Asignaturas" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource MenuButtonStyle}" Click="MenuItem_Estudiantes_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="👨‍🎓" FontSize="16" Margin="0,0,15,0"/>
+                                <TextBlock Text="Gestión Estudiantes" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource MenuButtonStyle}" Click="MenuItem_Calificaciones_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="📝" FontSize="16" Margin="0,0,15,0"/>
+                                <TextBlock Text="Calificaciones" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                      
+
+                        <Button Style="{StaticResource MenuButtonStyle}" Click="MenuItem_Reportes_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="📈" FontSize="16" Margin="0,0,15,0"/>
+                                <TextBlock Text="Reportes" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource MenuButtonStyle}" Click="MenuItem_Perfil_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="👤" FontSize="16" Margin="0,0,15,0"/>
+                                <TextBlock Text="Mi Perfil" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+
+                    <!-- Espacio flexible -->
+                    <StackPanel VerticalAlignment="Bottom" Margin="15,0,15,25">
+                        <!-- Separador -->
+                        <Border Height="1" Background="{StaticResource PrimaryLight}" Margin="0,0,0,20"/>
+
+                        <!-- Botón Cerrar Sesión -->
+                        <Button Background="{StaticResource ErrorDark}"
+                                Foreground="{StaticResource White}"
+                                BorderThickness="0"
+                                FontSize="14"
+                                FontWeight="SemiBold"
+                                Padding="20,12"
+                                Cursor="Hand"
+                                Click="BtnCerrarSesion_Click">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock Text="Cerrar Sesión"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== CONTENIDO PRINCIPAL ===== -->
+            <Border Grid.Column="1" 
+                    Background="{StaticResource White}" 
+                    CornerRadius="0,15,15,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Header Superior -->
+                    <Border Grid.Row="0" 
+                            Background="{StaticResource PrimaryMedium}" 
+                            Padding="25,15"
+                            CornerRadius="0,15,0,0">
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Botón Volver -->
+                            <Button Grid.Column="0"
+                                    Content="← Volver"
+                                    Background="Transparent"
+                                    Foreground="{StaticResource White}"
+                                    BorderThickness="0"
+                                    FontSize="12"
+                                    Cursor="Hand"
+                                    Click="BtnVolver_Click"/>
+
+                            <!-- Título Central -->
+                            <TextBlock Grid.Column="1"
+                                       Text="PANEL DOCENTE - K-NECT"
+                                       Foreground="{StaticResource White}"
+                                       FontSize="18"
+                                       FontWeight="Bold"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+
+                            <!-- Botón Notificaciones -->
+                            <Button Grid.Column="2"
+                                    Content="🔔"
+                                    Background="Transparent"
+                                    Foreground="{StaticResource White}"
+                                    BorderThickness="0"
+                                    FontSize="16"
+                                    Cursor="Hand"
+                                    Click="BtnNotificaciones_Click"
+                                    Margin="0,0,15,0"/>
+
+                            <!-- Botón Ajustes -->
+                            <Button Grid.Column="3"
+                                    Content="⚙️"
+                                    Background="Transparent"
+                                    Foreground="{StaticResource White}"
+                                    BorderThickness="0"
+                                    FontSize="16"
+                                    Cursor="Hand"
+                                    Click="BtnAjustes_Click"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Contenido Principal -->
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <Grid Margin="30">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Banner de Bienvenida -->
+                            <Border Grid.Row="0"
+                                    Background="{StaticResource PrimaryLight}" 
+                                    Padding="35" 
+                                    CornerRadius="12" 
+                                    Margin="0,0,0,30">
+
+                                <StackPanel>
+                                    <TextBlock x:Name="txtBienvenida" 
+                                              Text="¡Bienvenido, Profesor!" 
+                                              Foreground="{StaticResource White}" 
+                                              FontSize="28" 
+                                              FontWeight="Bold"
+                                              Margin="0,0,0,8"/>
+
+                                    <TextBlock x:Name="txtBienvenidaDetalle"
+                                              Text="Gestiona tus asignaturas, estudiantes y evaluaciones de manera eficiente"
+                                              Foreground="{StaticResource GrayLight}" 
+                                              FontSize="16"
+                                              Margin="0,0,0,12"/>
+
+                                    <TextBlock x:Name="txtEstadisticasDocente"
+                                       Foreground="{StaticResource White}" 
+                                       FontSize="13"
+                                       FontWeight="SemiBold"
+                                       Text="📊 --- asignaturas | 👨‍🎓 --- estudiantes | 📝 --- evaluaciones pendientes"/> 
+
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Tarjetas de Acceso Rápido -->
+                            <StackPanel Grid.Row="1" Orientation="Vertical">
+                                <TextBlock Text="Accesos Rápidos"
+                                          Foreground="{StaticResource TextDark}"
+                                          FontSize="22"
+                                          FontWeight="Bold"
+                                          Margin="0,0,0,25"/>
+
+                                <UniformGrid Columns="3" HorizontalAlignment="Stretch">
+                                    <!-- Mis Asignaturas -->
+                                    <Border Style="{StaticResource CardStyle}" MouseDown="Card_Asignaturas_MouseDown">
+                                        <StackPanel>
+                                            <TextBlock Text="📚" 
+                                                      FontSize="40"
+                                                      HorizontalAlignment="Center"
+                                                      Margin="0,0,0,15"/>
+                                            <TextBlock Text="MIS ASIGNATURAS" 
+                                                      Foreground="{StaticResource PrimaryDark}"
+                                                      FontSize="15"
+                                                      FontWeight="Bold"
+                                                      HorizontalAlignment="Center"
+                                                      TextAlignment="Center"/>
+                                            <TextBlock Text="Gestiona tus materias asignadas"
+                                                      Foreground="{StaticResource TextLight}"
+                                                      FontSize="12"
+                                                      TextAlignment="Center"
+                                                      Margin="0,8,0,0"/>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- Gestión Estudiantes -->
+                                    <Border Style="{StaticResource CardStyle}" MouseDown="Card_Estudiantes_MouseDown">
+                                        <StackPanel>
+                                            <TextBlock Text="👨‍🎓" 
+                                                      FontSize="40"
+                                                      HorizontalAlignment="Center"
+                                                      Margin="0,0,0,15"/>
+                                            <TextBlock Text="GESTIÓN ESTUDIANTES" 
+                                                      Foreground="{StaticResource PrimaryDark}"
+                                                      FontSize="15"
+                                                      FontWeight="Bold"
+                                                      HorizontalAlignment="Center"
+                                                      TextAlignment="Center"/>
+                                            <TextBlock Text="Administra estudiantes por grupo"
+                                                      Foreground="{StaticResource TextLight}"
+                                                      FontSize="12"
+                                                      TextAlignment="Center"
+                                                      Margin="0,8,0,0"/>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- Calificaciones -->
+                                    <Border Style="{StaticResource CardStyle}" MouseDown="Card_Calificaciones_MouseDown">
+                                        <StackPanel>
+                                            <TextBlock Text="📝" 
+                                                      FontSize="40"
+                                                      HorizontalAlignment="Center"
+                                                      Margin="0,0,0,15"/>
+                                            <TextBlock Text="CALIFICACIONES" 
+                                                      Foreground="{StaticResource PrimaryDark}"
+                                                      FontSize="15"
+                                                      FontWeight="Bold"
+                                                      HorizontalAlignment="Center"
+                                                      TextAlignment="Center"/>
+                                            <TextBlock Text="Registra y modifica notas"
+                                                      Foreground="{StaticResource TextLight}"
+                                                      FontSize="12"
+                                                      TextAlignment="Center"
+                                                      Margin="0,8,0,0"/>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- Control Asistencia -->
+                                    
+
+                                    <!-- Reportes -->
+                                    <Border Style="{StaticResource CardStyle}" MouseDown="Card_Reportes_MouseDown">
+                                        <StackPanel>
+                                            <TextBlock Text="📈" 
+                                                      FontSize="40"
+                                                      HorizontalAlignment="Center"
+                                                      Margin="0,0,0,15"/>
+                                            <TextBlock Text="REPORTES" 
+                                                      Foreground="{StaticResource PrimaryDark}"
+                                                      FontSize="15"
+                                                      FontWeight="Bold"
+                                                      HorizontalAlignment="Center"
+                                                      TextAlignment="Center"/>
+                                            <TextBlock Text="Genera reportes de desempeño"
+                                                      Foreground="{StaticResource TextLight}"
+                                                      FontSize="12"
+                                                      TextAlignment="Center"
+                                                      Margin="0,8,0,0"/>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- Mi Perfil -->
+                                    <Border Style="{StaticResource CardStyle}" MouseDown="Card_Perfil_MouseDown">
+                                        <StackPanel>
+                                            <TextBlock Text="👤" 
+                                                      FontSize="40"
+                                                      HorizontalAlignment="Center"
+                                                      Margin="0,0,0,15"/>
+                                            <TextBlock Text="MI PERFIL" 
+                                                      Foreground="{StaticResource PrimaryDark}"
+                                                      FontSize="15"
+                                                      FontWeight="Bold"
+                                                      HorizontalAlignment="Center"
+                                                      TextAlignment="Center"/>
+                                            <TextBlock Text="Configura tu información personal"
+                                                      Foreground="{StaticResource TextLight}"
+                                                      FontSize="12"
+                                                      TextAlignment="Center"
+                                                      Margin="0,8,0,0"/>
+                                        </StackPanel>
+                                    </Border>
+                                </UniformGrid>
+                            </StackPanel>
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

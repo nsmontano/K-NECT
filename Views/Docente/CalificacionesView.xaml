@@ -1,0 +1,320 @@
+﻿<Window x:Class="K_NECT.Views.Docente.CalificacionesView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="K-NECT - Gestión de Calificaciones" 
+        Height="750" 
+        Width="1300"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        AllowsTransparency="True"
+        MouseDown="Window_MouseDown"
+        Icon="/Resources/Images/LogoK-nect3.png">
+
+    <Border Background="{StaticResource White}" 
+            CornerRadius="15" 
+            Margin="20"
+            BorderBrush="{StaticResource GrayLight}"
+            BorderThickness="1">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- ===== HEADER ===== -->
+            <Border Grid.Row="0" 
+                    Background="{StaticResource PrimaryMedium}" 
+                    CornerRadius="15,15,0,0"
+                    Padding="25,15">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0"
+                            Content="← Volver"
+                            Background="Transparent"
+                            Foreground="{StaticResource White}"
+                            BorderThickness="0"
+                            FontSize="14"
+                            Cursor="Hand"
+                            Click="BtnVolver_Click"/>
+
+                    <TextBlock Grid.Column="1"
+                               Text="📝 GESTIÓN DE CALIFICACIONES"
+                               Foreground="{StaticResource White}"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+
+                    <Button Grid.Column="2"
+                            Content="×"
+                            Background="Transparent"
+                            Foreground="{StaticResource White}"
+                            BorderThickness="0"
+                            FontSize="24"
+                            FontWeight="Bold"
+                            Cursor="Hand"
+                            Click="BtnCerrar_Click"/>
+                </Grid>
+            </Border>
+
+            <!-- ===== FILTROS ===== -->
+            <Border Grid.Row="1" 
+                    Background="{StaticResource PrimaryLight}"
+                    Padding="25,20">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="15"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Selector de Asignatura -->
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Seleccionar Asignatura"
+                                   Foreground="{StaticResource White}"
+                                   FontSize="12"
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,0,8"/>
+
+                        <ComboBox x:Name="cmbAsignaturas"
+                                 FontSize="13"
+                                 Height="40"
+                                 VerticalContentAlignment="Center"
+                                 SelectionChanged="CmbAsignaturas_SelectionChanged">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding CodigoAsignatura}" 
+                                                  FontWeight="Bold"
+                                                  Margin="0,0,10,0"/>
+                                        <TextBlock Text="-"/>
+                                        <TextBlock Text="{Binding NombreAsignatura}"
+                                                  Margin="10,0,0,0"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <!-- Selector de Tipo de Evaluación -->
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="Tipo de Evaluación"
+                                   Foreground="{StaticResource White}"
+                                   FontSize="12"
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,0,8"/>
+
+                        <ComboBox x:Name="cmbTipoEvaluacion"
+                                 FontSize="13"
+                                 Height="40"
+                                 VerticalContentAlignment="Center"
+                                 SelectionChanged="CmbTipoEvaluacion_SelectionChanged">
+                            <ComboBoxItem Content="📋 Parciales"/>
+                            <ComboBoxItem Content="📝 Tareas"/>
+                            <ComboBoxItem Content="💼 Proyectos"/>
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- ===== CONTENIDO PRINCIPAL ===== -->
+            <Grid Grid.Row="2" Margin="25,20,25,15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Información -->
+                <Border Grid.Row="0"
+                        Background="{StaticResource GrayLight}"
+                        Padding="15"
+                        CornerRadius="8"
+                        Margin="0,0,0,15">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Name="txtInfoEvaluacion"
+                                  Text="Selecciona una asignatura y tipo de evaluación"
+                                  Foreground="{StaticResource TextDark}"
+                                  FontSize="13"
+                                  FontWeight="SemiBold"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Selector de Evaluación Específica -->
+                <StackPanel Grid.Row="1" 
+                           x:Name="pnlSelectorEvaluacion"
+                           Orientation="Horizontal"
+                           Margin="0,0,0,15"
+                           Visibility="Collapsed">
+
+                    <TextBlock Text="Seleccionar Evaluación:"
+                              Foreground="{StaticResource TextDark}"
+                              FontSize="13"
+                              FontWeight="SemiBold"
+                              VerticalAlignment="Center"
+                              Margin="0,0,15,0"/>
+
+                    <ComboBox x:Name="cmbEvaluaciones"
+                             FontSize="13"
+                             Width="400"
+                             Height="35"
+                             VerticalContentAlignment="Center"
+                             SelectionChanged="CmbEvaluaciones_SelectionChanged"/>
+
+                    <Button x:Name="btnNuevaEvaluacion"
+                           Content="➕ Nueva Evaluación"
+                           Background="{StaticResource SuccessDark}"
+                           Foreground="{StaticResource White}"
+                           FontSize="12"
+                           FontWeight="SemiBold"
+                           Padding="15,8"
+                           Margin="15,0,0,0"
+                           Cursor="Hand"
+                           Click="BtnNuevaEvaluacion_Click"
+                           Visibility="Collapsed">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}" 
+                                        CornerRadius="6"
+                                        Padding="{TemplateBinding Padding}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
+
+                <!-- DataGrid de Calificaciones -->
+                <DataGrid Grid.Row="2"
+                         x:Name="dgCalificaciones"
+                         AutoGenerateColumns="False"
+                         GridLinesVisibility="None"
+                         Background="{StaticResource White}"
+                         RowBackground="{StaticResource White}"
+                         AlternatingRowBackground="{StaticResource GrayLight}"
+                         BorderBrush="{StaticResource GrayLight}"
+                         BorderThickness="1"
+                         CanUserResizeRows="False"
+                         HeadersVisibility="Column"
+                         SelectionMode="Single"
+                         FontSize="13"
+                         CellEditEnding="DgCalificaciones_CellEditEnding">
+
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="{StaticResource PrimaryDark}"/>
+                            <Setter Property="Foreground" Value="{StaticResource White}"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="FontSize" Value="13"/>
+                            <Setter Property="Padding" Value="15,12"/>
+                            <Setter Property="BorderThickness" Value="0,0,1,0"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource PrimaryLight}"/>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="Height" Value="45"/>
+                        </Style>
+                    </DataGrid.RowStyle>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Código" 
+                                          Binding="{Binding CodigoEstudiante}" 
+                                          Width="100"
+                                          IsReadOnly="True"/>
+
+                        <DataGridTextColumn Header="Estudiante" 
+                                          Binding="{Binding NombreCompleto}" 
+                                          Width="*"
+                                          IsReadOnly="True"/>
+
+                        <DataGridTextColumn Header="Nota (0-10)" 
+                                          Binding="{Binding Nota, UpdateSourceTrigger=PropertyChanged}" 
+                                          Width="120"/>
+
+                        <DataGridTextColumn Header="Comentario" 
+                                          Binding="{Binding Comentario, UpdateSourceTrigger=PropertyChanged}" 
+                                          Width="*"/>
+
+                        <DataGridTextColumn Header="Estado" 
+                                          Binding="{Binding Estado}" 
+                                          Width="100"
+                                          IsReadOnly="True"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <!-- Mensaje cuando no hay datos -->
+                <StackPanel Grid.Row="2"
+                           x:Name="pnlSinDatos"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Visibility="Collapsed">
+                    <TextBlock Text="📋"
+                              FontSize="48"
+                              HorizontalAlignment="Center"
+                              Margin="0,0,0,15"/>
+                    <TextBlock Text="Selecciona una asignatura y tipo de evaluación para comenzar"
+                              Foreground="{StaticResource TextLight}"
+                              FontSize="16"
+                              HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- ===== FOOTER - BOTONES DE ACCIÓN ===== -->
+            <Border Grid.Row="3"
+                    Background="{StaticResource GrayLight}"
+                    Padding="25,15"
+                    CornerRadius="0,0,15,15">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock x:Name="txtEstadoGuardado"
+                              Text=""
+                              Foreground="{StaticResource SuccessDark}"
+                              FontSize="13"
+                              FontWeight="SemiBold"
+                              VerticalAlignment="Center"/>
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                        <Button x:Name="btnGuardar"
+                               Content="💾 GUARDAR CALIFICACIONES"
+                               Background="{StaticResource SuccessDark}"
+                               Foreground="{StaticResource White}"
+                               FontSize="14"
+                               FontWeight="Bold"
+                               Padding="25,12"
+                               Cursor="Hand"
+                               Click="BtnGuardar_Click"
+                               IsEnabled="False">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" 
+                                            CornerRadius="8"
+                                            Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</Window>
